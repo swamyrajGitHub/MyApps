@@ -1,0 +1,79 @@
+<h1 mat-dialog-title>Notification Rule</h1>
+
+<div mat-dialog-content>
+    <form id="ruleForm" [formGroup]="myForm" novalidate>
+        <table class="example-full-width" cellspacing="5">
+            <tr>
+                <td>
+                    <mat-form-field>
+                         <!-- disabled doesn't work for matInput-->
+                        <input matInput placeholder="Rule Name" formControlName="ruleName" required>
+                    </mat-form-field>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <mat-form-field>
+                        <mat-select placeholder="Report Type" formControlName="reportType" [disabled]="isDisabled"  required>
+                            <mat-option *ngFor="let report of reportTypes" [value]="report.name">
+                                {{report.description}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <mat-form-field>
+                        <mat-select placeholder="Template" formControlName="template" [disabled]="isDisabled" required>
+                            <mat-option *ngFor="let template of templates" [value]="template.name">
+                                {{template.description}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field>
+                        <mat-select placeholder="Order Type" formControlName="orderType" [disabled]="isDisabled" required>
+                            <mat-option *ngFor="let orderType of orderTypes" [value]="orderType.name">
+                                {{orderType.description}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <mat-form-field>
+                        <mat-select placeholder="Transaction Type" formControlName="transType" [disabled]="isDisabled" required>
+                            <mat-option *ngFor="let transType of transTypes" [value]="transType.name">
+                                {{transType.description}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field>
+                        <mat-select placeholder="Status" formControlName="statuz" [disabled]="isDisabled" required>
+                            <mat-option *ngFor="let statuz of statuses" [value]="statuz.name">
+                                {{statuz.description}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <mat-form-field>
+                        <input type="number" matInput placeholder="Max count" formControlName="maxcount" required>
+                    </mat-form-field>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+<div mat-dialog-actions>
+    <button mat-raised-button (click)="onCancel()">Cancel</button>
+    <button mat-raised-button [mat-dialog-close]="myForm" form="ruleForm" [disabled]="!myForm.valid">Save</button>
+</div>

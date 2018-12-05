@@ -1,0 +1,55 @@
+<div [@routerTransition]>
+<app-page-header [heading]="'Notification'" [icon]="'fa-edit'"></app-page-header>
+<ngb-alert [hidden]="hideAlert" [type]="alert.type" (close)="closeAlert(alert)" *ngFor="let alert of alerts">{{ alert.message }}</ngb-alert>
+<div *ngIf="showLoadingScreen" class="container">
+  <div class="row">
+    <div class="animationload">
+      <div class="spinner">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <mat-card>
+    <mat-card-content>
+      <div *ngIf="!isSubscribed">
+        <h4>
+          Desktop notifications are currently disabled &nbsp;&nbsp;&nbsp;&nbsp;
+          <button mat-raised-button (click)="subscribeToPushNotification()">
+            <mat-icon>notifications_active</mat-icon>Subscribe</button>
+        </h4>
+        <p>
+          We strongly recommend to subscribe for notifications so that you'll know when important activities happens in COP.
+        </p>
+      </div>
+      <div *ngIf="isSubscribed">
+        <h4>
+          Desktop notifications are currently enabled &nbsp;&nbsp;&nbsp;&nbsp;
+          <button mat-raised-button (click)="unsubscribeFromPushNotification()">
+            <mat-icon>notifications_off</mat-icon>Unsubscribe</button>
+        </h4>
+        <p>
+          Please select notification preference below and submit.
+        </p>
+      </div>
+
+
+      <h4>Notify me about</h4>
+
+      <form [formGroup]="form" (ngSubmit)="submit()">
+
+        <section calss="example-section" formArrayName="notifTypes" *ngFor="let notifType of form.get('notifTypes')['controls']; let i = index">
+          <mat-checkbox [formControlName]="i">
+            {{notifTypes[i].name}}
+          </mat-checkbox>
+        </section>
+        <button [disabled]="!isSubscribed" mat-raised-button>Submit</button>
+      </form>
+
+    </mat-card-content>
+
+  </mat-card>

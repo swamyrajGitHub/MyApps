@@ -1,0 +1,38 @@
+<div [@routerTransition]>
+  <app-page-header [heading]="'Notification Rule'" [icon]="'fa-edit'"></app-page-header>
+  <ngb-alert [hidden]="hideAlert" [type]="alert.type" (close)="closeAlert(alert)" *ngFor="let alert of alerts">{{ alert.message }}</ngb-alert>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card mb-3">
+        <div class="card-header">
+          <div style="padding-left:50px">
+            <button mat-raised-button (click)="openDialog(false,null)" class="btn btn-secondary">Add Rule</button>
+          </div>
+        </div>
+        
+        <div class="card-body">
+          <ngx-datatable style="width: 90%" class="material" [rows]="rows" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
+            [rowHeight]="'auto'" [limit]="10" [scrollbarH]="true" [selected]="selected" (activate)="onActivate($event)" (select)='onSelect($event)'>
+
+            <ngx-datatable-column name="Rule Id" [width]="30"></ngx-datatable-column>
+            <ngx-datatable-column name="Rule Name" [width]="100"></ngx-datatable-column>
+            <ngx-datatable-column name="Report Type" [width]="80"></ngx-datatable-column>
+            <ngx-datatable-column name="Rule Description" [width]="150"></ngx-datatable-column>
+
+            <ngx-datatable-column sortable="false" [width]="30">
+              <ng-template ngx-datatable-cell-template let-row="row" let-value="value" let-isSelected="isSelected">
+                <button mat-raised-button type="submit" class="btn btn-secondary" (click)="btnEditNotificationRule(row)">Edit</button>
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column sortable="false" [width]="30">
+              <ng-template ngx-datatable-cell-template let-row="row" let-value="value" let-isSelected="isSelected">
+                <button mat-raised-button type="submit" class="btn btn-secondary" (click)="btnDeleteNotificationRule(row)">Delete</button>
+              </ng-template>
+            </ngx-datatable-column>
+          </ngx-datatable>
+        </div>
+      </div>
+    </div>
+  </div>
